@@ -1,0 +1,66 @@
+Пояснение:
+
+////
+   Тело скрипта
+\\\\
+
+
+1.
+touch text1.txt
+nano text1.txt
+////
+Hello Hello Cat
+
+Next Next Next
+\\\\
+touch text1.sh
+chmod +x text1.sh
+nano text1.sh
+////
+#/bin/bash
+for file in *txt
+do
+sed -s '/^$/d' $file | tr [:lower:] [:upper:] > output
+mv output $file
+done
+\\\\
+./text1.sh
+
+2.
+touch auf_mon.sh
+chmod +x auf_mon.sh
+nano auf_mon.sh
+////
+#/bin/bash
+mon_log=/var/log/auth.log
+tail -f $mon_log | grep -i "invalid user" || "failured"
+\\\\
+./text1.sh
+
+3.
+touch create_dir.sh
+chmod +x create_dir.sh
+nano create_dir.sh
+////
+#/bin/bash
+for year in {2010..2017}
+do
+mkdir $year
+cd $year
+        for month in {1..12}
+        do
+        mkdir $month
+        cd $month
+        echo Файл 00$month > 00$month.txt
+        cd ../
+        done
+cd ../
+done
+\\\\
+./create_dir.sh
+
+4.
+sudo crontab -e
+////
+0 12 * * * du -sch /home/* > /var/log/user_size.log
+\\\\
